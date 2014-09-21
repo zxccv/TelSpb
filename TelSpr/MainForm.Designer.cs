@@ -36,6 +36,12 @@
             this.verticalSplitContainer = new System.Windows.Forms.SplitContainer();
             this.tvOrganizationStructure = new System.Windows.Forms.TreeView();
             this.btnExpandTree = new System.Windows.Forms.Button();
+            this.tbBirthday = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbEmailPersonal = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbEmailWork = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tbComment = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tbResponsibility = new System.Windows.Forms.TextBox();
@@ -70,12 +76,7 @@
             this.cmOrganizationTree = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuAddOrgUnit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDeleteOrgUnit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tbEmailWork = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tbEmailPersonal = new System.Windows.Forms.TextBox();
-            this.tbBirthday = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.menuEditOrgUnit = new System.Windows.Forms.ToolStripMenuItem();
             this.verticalSplitContainer.Panel1.SuspendLayout();
             this.verticalSplitContainer.Panel2.SuspendLayout();
             this.verticalSplitContainer.SuspendLayout();
@@ -175,6 +176,66 @@
             this.btnExpandTree.Text = "<";
             this.btnExpandTree.UseVisualStyleBackColor = true;
             this.btnExpandTree.Click += new System.EventHandler(this.btnExpandTree_Click);
+            // 
+            // tbBirthday
+            // 
+            this.tbBirthday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbBirthday.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbBirthday.Location = new System.Drawing.Point(168, 638);
+            this.tbBirthday.Name = "tbBirthday";
+            this.tbBirthday.Size = new System.Drawing.Size(129, 29);
+            this.tbBirthday.TabIndex = 28;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(12, 641);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(150, 24);
+            this.label7.TabIndex = 32;
+            this.label7.Text = "Дата рождения";
+            // 
+            // tbEmailPersonal
+            // 
+            this.tbEmailPersonal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbEmailPersonal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEmailPersonal.Location = new System.Drawing.Point(556, 534);
+            this.tbEmailPersonal.Name = "tbEmailPersonal";
+            this.tbEmailPersonal.Size = new System.Drawing.Size(320, 29);
+            this.tbEmailPersonal.TabIndex = 21;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(486, 536);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(72, 24);
+            this.label6.TabIndex = 30;
+            this.label6.Text = "личная";
+            // 
+            // tbEmailWork
+            // 
+            this.tbEmailWork.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbEmailWork.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEmailWork.Location = new System.Drawing.Point(147, 534);
+            this.tbEmailWork.Name = "tbEmailWork";
+            this.tbEmailWork.Size = new System.Drawing.Size(315, 29);
+            this.tbEmailWork.TabIndex = 19;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(9, 536);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(142, 24);
+            this.label5.TabIndex = 28;
+            this.label5.Text = "Почта рабочая";
             // 
             // tbComment
             // 
@@ -511,84 +572,32 @@
             this.cmOrganizationTree.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cmOrganizationTree.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuAddOrgUnit,
+            this.menuEditOrgUnit,
             this.menuDeleteOrgUnit});
             this.cmOrganizationTree.Name = "cmOrganizationTree";
-            this.cmOrganizationTree.Size = new System.Drawing.Size(264, 56);
+            this.cmOrganizationTree.Size = new System.Drawing.Size(302, 104);
             this.cmOrganizationTree.Opening += new System.ComponentModel.CancelEventHandler(this.cmOrganizationTree_Opening);
             // 
             // menuAddOrgUnit
             // 
             this.menuAddOrgUnit.Name = "menuAddOrgUnit";
-            this.menuAddOrgUnit.Size = new System.Drawing.Size(263, 26);
+            this.menuAddOrgUnit.Size = new System.Drawing.Size(301, 26);
             this.menuAddOrgUnit.Text = "Добавить подразделение";
             this.menuAddOrgUnit.Click += new System.EventHandler(this.menuAddOrgUnit_Click);
             // 
             // menuDeleteOrgUnit
             // 
             this.menuDeleteOrgUnit.Name = "menuDeleteOrgUnit";
-            this.menuDeleteOrgUnit.Size = new System.Drawing.Size(263, 26);
+            this.menuDeleteOrgUnit.Size = new System.Drawing.Size(301, 26);
             this.menuDeleteOrgUnit.Text = "Удалить подразделение";
             this.menuDeleteOrgUnit.Click += new System.EventHandler(this.menuDeleteOrgUnit_Click);
             // 
-            // tbEmailWork
+            // menuEditOrgUnit
             // 
-            this.tbEmailWork.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbEmailWork.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbEmailWork.Location = new System.Drawing.Point(147, 534);
-            this.tbEmailWork.Name = "tbEmailWork";
-            this.tbEmailWork.Size = new System.Drawing.Size(315, 29);
-            this.tbEmailWork.TabIndex = 19;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(9, 536);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(142, 24);
-            this.label5.TabIndex = 28;
-            this.label5.Text = "Почта рабочая";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(486, 536);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 24);
-            this.label6.TabIndex = 30;
-            this.label6.Text = "личная";
-            // 
-            // tbEmailPersonal
-            // 
-            this.tbEmailPersonal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbEmailPersonal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbEmailPersonal.Location = new System.Drawing.Point(556, 534);
-            this.tbEmailPersonal.Name = "tbEmailPersonal";
-            this.tbEmailPersonal.Size = new System.Drawing.Size(320, 29);
-            this.tbEmailPersonal.TabIndex = 21;
-            // 
-            // tbBirthday
-            // 
-            this.tbBirthday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbBirthday.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbBirthday.Location = new System.Drawing.Point(168, 638);
-            this.tbBirthday.Name = "tbBirthday";
-            this.tbBirthday.Size = new System.Drawing.Size(129, 29);
-            this.tbBirthday.TabIndex = 28;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(12, 641);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(150, 24);
-            this.label7.TabIndex = 32;
-            this.label7.Text = "Дата рождения";
+            this.menuEditOrgUnit.Name = "menuEditOrgUnit";
+            this.menuEditOrgUnit.Size = new System.Drawing.Size(301, 26);
+            this.menuEditOrgUnit.Text = "Редактировать подразделение";
+            this.menuEditOrgUnit.Click += new System.EventHandler(this.menuEditOrgUnit_Click);
             // 
             // TelSprMainForm
             // 
@@ -659,6 +668,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbEmailWork;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStripMenuItem menuEditOrgUnit;
     }
 }
 

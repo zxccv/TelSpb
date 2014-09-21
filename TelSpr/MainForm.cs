@@ -129,7 +129,7 @@ namespace TelSpr
                 var systemMenuHandle = GetSystemMenu(Handle, false);
                 ModifyMenu(systemMenuHandle, 6, MF_BYPOSITION, EditModeSysMenuId, "Включить режим редактирования");
                 _editMode = false;
-                Text = "Телефонный справочник АК ГРУЗОМОБИЛЬ";
+                Text = @"Телефонный справочник АК ГРУЗОМОБИЛЬ";
                 ControlsAcceptance();
                 tvOrganizationStructure.ContextMenuStrip = null;
             }
@@ -142,7 +142,7 @@ namespace TelSpr
                     var systemMenuHandle = GetSystemMenu(Handle, false);
                     ModifyMenu(systemMenuHandle, 6, MF_BYPOSITION, EditModeSysMenuId, "Отключить режим редактирования");
                     _editMode = true;
-                    Text = "Телефонный справочник АК ГРУЗОМОБИЛЬ (РЕЖИМ РЕДАКТИРОВАНИЯ)";
+                    Text = @"Телефонный справочник АК ГРУЗОМОБИЛЬ (РЕЖИМ РЕДАКТИРОВАНИЯ)";
                     ControlsAcceptance();
                     tvOrganizationStructure.ContextMenuStrip = cmOrganizationTree;
                 }
@@ -258,12 +258,12 @@ namespace TelSpr
         {
             if (_isTreeExpanded)
             {
-                btnExpandTree.Text = ">";
+                btnExpandTree.Text = @">";
                 verticalSplitContainer.SplitterDistance = 25;
             }
             else
             {
-                btnExpandTree.Text = "<";
+                btnExpandTree.Text = @"<";
                 verticalSplitContainer.SplitterDistance = 300;
             }
 
@@ -282,9 +282,16 @@ namespace TelSpr
         private void cmOrganizationTree_Opening(object sender, CancelEventArgs e)
         {
             if (tvOrganizationStructure.SelectedNode != null)
+            {
                 menuDeleteOrgUnit.Enabled = true;
+                menuEditOrgUnit.Enabled = true;
+            }
             else
+            {
                 menuDeleteOrgUnit.Enabled = false;
+                menuEditOrgUnit.Enabled = false;
+            }
+                
         }
 
         private void menuAddOrgUnit_Click(object sender, EventArgs e)
@@ -292,7 +299,7 @@ namespace TelSpr
 
             var inputForm = new InputForm();
             inputForm.ShowDialog();
-            var deptName = inputForm.InputString;
+            var deptName = inputForm.DeptName;
             if (deptName != "")
             {
                 var newNode = tvOrganizationStructure.SelectedNode.Nodes.Add(deptName);
@@ -300,8 +307,9 @@ namespace TelSpr
                 var parameters = new Dictionary<string, object>();
                 parameters.Add("name", deptName);
                 parameters.Add("parent_id", (long)tvOrganizationStructure.SelectedNode.Tag);
+                parameters.Add("boss_id", inputForm.BossID);
 
-                DBFunctions.ExecuteCommand("INSERT INTO org_structure VALUES(NULL,@parent_id,@name)", parameters);
+                DBFunctions.ExecuteCommand("INSERT INTO org_structure VALUES(NULL,@parent_id,@name,@boss_id)", parameters);
 
                 var maxId = (long)DBFunctions.ReadScalarFromDB("SELECT MAX(id) FROM org_structure");
 
@@ -313,12 +321,52 @@ namespace TelSpr
 
         }
 
+        private void menuEditOrgUnit_Click(object sender, EventArgs e)
+        {
+            var currDeptId = (long)tvOrganizationStructure.SelectedNode.Tag;
+
+            var parameters = new Dictionary<string, object> { { "dept_id", currDeptId } };
+
+            DataTable dtDeptInfo = DBFunctions.ReadFromDB(
+            @"SELECT 
+                org_structure.name,
+                org_structure.boss_id,
+                IFNULL(boss_table.second_name || ' ' || boss_table.name ||
+                CASE WHEN boss_table.third_name NOT NULL AND boss_table.third_name <> '' THEN ' ' || boss_table.third_name ELSE '' END,'') AS boss_fio
+                FROM org_structure LEFT JOIN workers AS boss_table ON org_structure.boss_id = boss_table.id WHERE org_structure.id = @dept_id"
+                , parameters);
+
+            var inputForm = new InputForm();
+            
+            inputForm.DeptName = (string)dtDeptInfo.Rows[0]["name"];
+            if (dtDeptInfo.Rows[0]["boss_id"] != DBNull.Value && (long) dtDeptInfo.Rows[0]["boss_id"] != 0)
+            {
+                inputForm.BossID = (long) dtDeptInfo.Rows[0]["boss_id"];
+                inputForm.BossFIO = (string) dtDeptInfo.Rows[0]["boss_fio"];
+            }
+            else
+            {
+                inputForm.BossID = 0;
+            }
+
+            DialogResult inputResult = inputForm.ShowDialog();
+
+            if (inputResult == DialogResult.OK)
+            {
+                parameters.Add("name",inputForm.DeptName);
+                parameters.Add("boss_id", inputForm.BossID);    
+
+                DBFunctions.ExecuteCommand("UPDATE org_structure SET name=@name,boss_id=@boss_id WHERE id=@dept_id",parameters);
+
+                tvOrganizationStructure.SelectedNode.Text = inputForm.DeptName;
+            }
+        }
+
         private void menuDeleteOrgUnit_Click(object sender, EventArgs e)
         {
             var currDeptId = (long)tvOrganizationStructure.SelectedNode.Tag;
 
-            var parameters = new Dictionary<string, object>();
-            parameters.Add("dept_id", currDeptId);
+            var parameters = new Dictionary<string, object> {{"dept_id", currDeptId}};
 
             var childDeptsCount = (long)DBFunctions.ReadScalarFromDB("SELECT COUNT(id) FROM org_structure WHERE parent_id = @dept_id", parameters);
 
@@ -1003,5 +1051,7 @@ namespace TelSpr
             }           
 
         }
+
+
     }
 }
