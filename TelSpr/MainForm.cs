@@ -331,8 +331,8 @@ namespace TelSpr
             @"SELECT 
                 org_structure.name,
                 org_structure.boss_id,
-                IFNULL(boss_table.second_name || ' ' || boss_table.name ||
-                CASE WHEN boss_table.third_name NOT NULL AND boss_table.third_name <> '' THEN ' ' || boss_table.third_name ELSE '' END,'') AS boss_fio
+                IFNULL(CONCAT(boss_table.second_name,' ',boss_table.name,
+                CASE WHEN NOT ISNULL(boss_table.third_name) AND boss_table.third_name <> '' THEN CONCAT(' ',boss_table.third_name) ELSE '' END),'') AS boss_fio
                 FROM org_structure LEFT JOIN workers AS boss_table ON org_structure.boss_id = boss_table.id WHERE org_structure.id = @dept_id"
                 , parameters);
 
@@ -610,8 +610,8 @@ namespace TelSpr
 
             _dtWorkers = DBFunctions.ReadFromDB(@"SELECT
             workers.id as id, 
-            workers.second_name || ' ' || workers.name || 
-            CASE WHEN workers.third_name NOT NULL AND workers.third_name <> '' THEN ' ' || workers.third_name ELSE '' END AS FIO,
+            CONCAT(workers.second_name,' ',workers.name, 
+            CASE WHEN NOT ISNULL(workers.third_name) AND workers.third_name <> '' THEN CONCAT(' ',workers.third_name) ELSE '' END) AS FIO,
             IFNULL(Departments.name,'') AS Department, 
             IFNULL(workers.position,'') AS Position,
             IFNULL(workers.second_name,'') AS s_name,
@@ -626,8 +626,8 @@ namespace TelSpr
             IFNULL(workers.comment,'') AS comment,
             IFNULL(workers.responsibility,'') AS responsibility,
             IFNULL(boss_table.id,0) AS boss_id,
-            IFNULL(boss_table.second_name || ' ' || boss_table.name || 
-            CASE WHEN boss_table.third_name NOT NULL AND boss_table.third_name <> '' THEN ' ' || boss_table.third_name ELSE '' END,'') AS boss_fio,
+            IFNULL(CONCAT(boss_table.second_name,' ',boss_table.name, 
+            CASE WHEN NOT ISNULL(boss_table.third_name) AND boss_table.third_name <> '' THEN CONCAT(' ',boss_table.third_name) ELSE '' END),'') AS boss_fio,
             IFNULL(workers.email_work,'') AS email_work,
             IFNULL(workers.email_personal,'') AS email_personal,
             IFNULL(workers.birthday,'') AS birthday

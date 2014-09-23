@@ -18,8 +18,8 @@ namespace TelSpr
         private void BossSelectForm_Load(object sender, EventArgs e)
         {
             
-            var dtWorkers = DBFunctions.ReadFromDB(@"SELECT id,workers.second_name || ' ' || workers.name || 
-            CASE WHEN workers.third_name NOT NULL AND workers.third_name <> '' THEN ' ' || workers.third_name ELSE '' END AS FIO,
+            var dtWorkers = DBFunctions.ReadFromDB(@"SELECT id,CONCAT(workers.second_name,' ',workers.name, 
+            CASE WHEN NOT ISNULL(workers.third_name) AND workers.third_name <> '' THEN CONCAT(' ',workers.third_name) ELSE '' END) AS FIO,
             IFNULL(workers.position,'') AS Position 
             FROM workers");
 
