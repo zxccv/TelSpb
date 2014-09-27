@@ -32,13 +32,12 @@ namespace TelSpr
 
         private static string LoadConnString()
         {
-            return "Database=telspr;Data Source=10.1.11.160" +
+            return "Database=telspr;Data Source=192.168.0.160" +
                     ";Port=3306;User Id=telspr_user;Password=Pr0gress;CharSet=utf8";
         }
 
         static DBFunctions()
-        {
-            CreateDataBase();
+        {            
         }
 
         static void CreateDataBase()

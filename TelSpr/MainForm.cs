@@ -1030,8 +1030,8 @@ namespace TelSpr
 
             var dtChildWorkers = DBFunctions.ReadFromDB(@"SELECT 
             workers.id as id, 
-            workers.second_name || ' ' || workers.name || 
-            CASE WHEN workers.third_name NOT NULL AND workers.third_name <> '' THEN ' ' || workers.third_name ELSE '' END AS FIO
+            CONCAT(workers.second_name,' ',workers.name, 
+            CASE WHEN NOT ISNULL(workers.third_name) AND workers.third_name <> '' THEN CONCAT(' ',workers.third_name) ELSE '' END) AS FIO
             FROM workers WHERE boss = @id",parameters);
 
             if(dtChildWorkers.Rows.Count == 0)
